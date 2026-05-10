@@ -8,6 +8,7 @@ function comprar() {
     alert("Compra simulada com sucesso!");
 }
 
+// Navbar esconde ao descer, aparece ao subir
 let lastScroll = 0;
 const navbar = document.querySelector("nav");
 
@@ -15,27 +16,25 @@ window.addEventListener("scroll", () => {
     let currentScroll = window.pageYOffset;
 
     if (currentScroll > lastScroll) {
-        // Descendo → esconde
-        navbar.style.top = "-80px";
+        navbar.style.top = "-200px";
     } else {
-        // Subindo → mostra
         navbar.style.top = "0";
     }
 
     lastScroll = currentScroll;
 });
 
+// Carrossel
 let index = 0;
 const images = document.querySelectorAll(".carousel img");
 
 setInterval(() => {
     images[index].classList.remove("active");
-
     index = (index + 1) % images.length;
-
     images[index].classList.add("active");
-}, 2000); // troca a cada 2s
+}, 2000);
 
+// Login
 function abrirLogin() {
     document.getElementById("loginModal").style.display = "flex";
 }
@@ -69,10 +68,22 @@ function validarLogin() {
 
 function toggleSenha() {
     const senha = document.getElementById("senha");
-
-    if (senha.type === "password") {
-        senha.type = "text";
-    } else {
-        senha.type = "password";
-    }
+    senha.type = senha.type === "password" ? "text" : "password";
 }
+
+// Menu hamburguer
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector("nav ul");
+
+hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("aberto");
+    navMenu.classList.toggle("aberto");
+});
+
+// Fecha o menu ao clicar em um link
+document.querySelectorAll("nav ul li a").forEach(link => {
+    link.addEventListener("click", () => {
+        hamburger.classList.remove("aberto");
+        navMenu.classList.remove("aberto");
+    });
+});
